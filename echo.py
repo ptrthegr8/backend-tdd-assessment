@@ -1,9 +1,20 @@
 import argparse
-import os
 import sys
 
 
-def main():
+def make_upper_case(string):
+    return string.upper()
+
+
+def make_lower_case(string):
+    return string.lower()
+
+
+def make_title_case(string):
+    return string.title()
+
+
+def parse_args(args):
     parser = argparse.ArgumentParser(
         description='Perform transformation on input text.')
     parser.add_argument(
@@ -13,15 +24,23 @@ def main():
     parser.add_argument(
         '-t', '--title', help='convert text to titlecase', action='store_true')
     parser.add_argument('text', help='text to be manipulated')
-    args = parser.parse_args()
-    if args.upper:
-        pass
-    elif args.lower:
-        pass
-    elif args.title:
-        pass
+
+    return parser.parse_args(args)
+
+
+def main():
+    parser = parse_args(sys.argv[1:])
+    if parser.title:
+        print make_title_case(parser.text)
+        return
+    if parser.lower:
+        print make_lower_case(parser.text)
+        return
+    if parser.upper:
+        print make_upper_case(parser.text)
+        return
     else:
-        pass
+        print parser.text
 
 
 if __name__ == "__main__":
